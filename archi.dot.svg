@@ -9,14 +9,14 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 319.2)">
 <title>Sielo</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-319.2 850.9124,-319.2 850.9124,4 -4,4"/>
-<text text-anchor="middle" x="423.4562" y="-31" font-family="Helvetica,sans-Serif" font-style="oblique" font-size="18.00" fill="#000000">Sielo architecture</text>
+<text text-anchor="middle" x="423.4562" y="-31" font-family="Helvetica,sans-Serif" font-style="oblique" font-size="18.00" fill="#000000">Sielo Jennysis architecture</text>
 <text text-anchor="middle" x="423.4562" y="-9.4" font-family="Helvetica,sans-Serif" font-style="oblique" font-size="18.00" fill="#000000">Sielo Team, 18/03/2019</text>
 <!-- Sielo -->
 <g id="node1" class="node">
 <title>Sielo</title>
-<g id="a_node1"><a xlink:href="https://sielo.app" xlink:title="Sielo">
-<ellipse fill="#b0c4de" stroke="#b0c4de" cx="514.5933" cy="-297.2" rx="30.7751" ry="18"/>
-<text text-anchor="middle" x="514.5933" y="-293" font-family="Times,serif" font-size="14.00" fill="#000000">Sielo</text>
+<g id="a_node1"><a xlink:href="https://sielo.app" xlink:title="Jennysis">
+<ellipse fill="#b0c4de" stroke="#b0c4de" cx="514.5933" cy="-297.2" rx="43.5194" ry="18"/>
+<text text-anchor="middle" x="514.5933" y="-293" font-family="Times,serif" font-size="14.00" fill="#000000">Jennysis</text>
 </a>
 </g>
 </g>
@@ -29,8 +29,8 @@
 <!-- Sielo&#45;&gt;History -->
 <g id="edge1" class="edge">
 <title>Sielo&#45;&gt;History</title>
-<path fill="none" stroke="#000000" d="M485.2641,-291.0613C423.4462,-278.1227 279.7406,-248.0448 209.9852,-233.4448"/>
-<polygon fill="#000000" stroke="#000000" points="210.3533,-229.9461 199.8483,-231.3231 208.9192,-236.7976 210.3533,-229.9461"/>
+<path fill="none" stroke="#000000" d="M475.467,-289.0108C409.2735,-275.1563 275.9487,-247.2511 209.7408,-233.3937"/>
+<polygon fill="#000000" stroke="#000000" points="210.2166,-229.9175 199.7116,-231.2945 208.7825,-236.769 210.2166,-229.9175"/>
 </g>
 <!-- Bookmarks -->
 <g id="node4" class="node">
@@ -41,8 +41,8 @@
 <!-- Sielo&#45;&gt;Bookmarks -->
 <g id="edge2" class="edge">
 <title>Sielo&#45;&gt;Bookmarks</title>
-<path fill="none" stroke="#000000" d="M499.7238,-281.2209C491.4291,-272.3071 480.8999,-260.9922 471.479,-250.8682"/>
-<polygon fill="#000000" stroke="#000000" points="473.9208,-248.3545 464.5462,-243.4181 468.7963,-253.1231 473.9208,-248.3545"/>
+<path fill="none" stroke="#000000" d="M498.7152,-280.137C490.5931,-271.4088 480.539,-260.6044 471.5019,-250.8928"/>
+<polygon fill="#000000" stroke="#000000" points="473.9032,-248.3356 464.5286,-243.3992 468.7787,-253.1042 473.9032,-248.3356"/>
 </g>
 <!-- Cookies -->
 <g id="node5" class="node">
@@ -53,8 +53,8 @@
 <!-- Sielo&#45;&gt;Cookies -->
 <g id="edge3" class="edge">
 <title>Sielo&#45;&gt;Cookies</title>
-<path fill="none" stroke="#000000" d="M529.6847,-281.2209C538.1033,-272.3071 548.7896,-260.9922 558.3511,-250.8682"/>
-<polygon fill="#000000" stroke="#000000" points="561.0656,-253.0914 565.3873,-243.4181 555.9765,-248.285 561.0656,-253.0914"/>
+<path fill="none" stroke="#000000" d="M530.7084,-280.137C538.9517,-271.4088 549.1559,-260.6044 558.3279,-250.8928"/>
+<polygon fill="#000000" stroke="#000000" points="561.0835,-253.0725 565.4052,-243.3992 555.9944,-248.2661 561.0835,-253.0725"/>
 </g>
 <!-- WebEngine -->
 <g id="node6" class="node">
@@ -65,14 +65,14 @@
 <!-- Sielo&#45;&gt;WebEngine -->
 <g id="edge4" class="edge">
 <title>Sielo&#45;&gt;WebEngine</title>
-<path fill="none" stroke="#000000" d="M539.0473,-285.9634C544.1633,-283.678 549.5388,-281.3246 554.5933,-279.2 583.3207,-267.1246 615.7572,-254.3873 641.9617,-244.3176"/>
-<polygon fill="#000000" stroke="#000000" points="643.2293,-247.5802 651.3157,-240.7347 640.7253,-241.0433 643.2293,-247.5802"/>
+<path fill="none" stroke="#000000" d="M546.0064,-284.4936C572.5982,-273.7373 611.21,-258.1191 642.1305,-245.6119"/>
+<polygon fill="#000000" stroke="#000000" points="643.4999,-248.8335 651.4578,-241.8391 640.875,-242.3443 643.4999,-248.8335"/>
 </g>
 <!-- Backend -->
 <g id="node2" class="node">
 <title>Backend</title>
-<polygon fill="#708090" stroke="#708090" points="628.0737,-315.2 563.1129,-315.2 563.1129,-279.2 628.0737,-279.2 628.0737,-315.2"/>
-<text text-anchor="middle" x="595.5933" y="-293" font-family="Times,serif" font-size="14.00" fill="#000000">Backend</text>
+<polygon fill="#708090" stroke="#708090" points="641.0737,-315.2 576.1129,-315.2 576.1129,-279.2 641.0737,-279.2 641.0737,-315.2"/>
+<text text-anchor="middle" x="608.5933" y="-293" font-family="Times,serif" font-size="14.00" fill="#000000">Backend</text>
 </g>
 <!-- HistoryViewer -->
 <g id="node10" class="node">
@@ -161,8 +161,8 @@
 <!-- FrontEnd -->
 <g id="node7" class="node">
 <title>FrontEnd</title>
-<polygon fill="#6b8e23" stroke="#6b8e23" points="714.9798,-315.2 646.2068,-315.2 646.2068,-279.2 714.9798,-279.2 714.9798,-315.2"/>
-<text text-anchor="middle" x="680.5933" y="-293" font-family="Times,serif" font-size="14.00" fill="#000000">FrontEnd</text>
+<polygon fill="#6b8e23" stroke="#6b8e23" points="727.9798,-315.2 659.2068,-315.2 659.2068,-279.2 727.9798,-279.2 727.9798,-315.2"/>
+<text text-anchor="middle" x="693.5933" y="-293" font-family="Times,serif" font-size="14.00" fill="#000000">FrontEnd</text>
 </g>
 <!-- TabsSpace -->
 <g id="node14" class="node">

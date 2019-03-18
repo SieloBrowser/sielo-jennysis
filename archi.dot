@@ -1,0 +1,55 @@
+digraph Sielo {
+    graph [	
+        fontname = "Helvetica-Oblique",
+        fontsize = 18,
+        label = "\n\n\n\nSielo Jennysis architecture\nSielo Team, 18/03/2019",
+        size = "12,12" 
+    ];
+
+    /* Entities */
+    Sielo [label="Jennysis", shape="ellipse", style="filled", color="LIGHTSTEELBLUE" URL="https://sielo.app"]
+    // Backend 
+    node [
+        shape = rectangle,
+        color = slategray,
+        style = filled
+    ];
+    Backend;
+
+    History;
+    Bookmarks;
+    Cookies;
+    WebEngine;
+
+    // Font end
+    node [
+        shape = rectangle,
+        color = olivedrab,
+        style = filled
+    ];
+    FrontEnd;
+
+    BookmarksViewer;
+    BookmarksManager;
+    HistoryViewer;
+    HistoryManager;
+    CookiesViewer;
+    CookiesManager;
+    TabsSpace;
+    Tabs;
+
+    /* Positioning */
+    Sielo -> History;
+    Sielo -> Bookmarks;
+    Sielo -> Cookies;
+    Sielo -> WebEngine;
+
+    History -> HistoryViewer;
+    History -> HistoryManager;
+    Bookmarks -> BookmarksViewer;
+    Bookmarks -> BookmarksManager;
+    Cookies -> CookiesViewer;
+    Cookies -> CookiesManager;
+    WebEngine -> Tabs;
+    TabsSpace -> Tabs;
+}

@@ -1,0 +1,6 @@
+site_name: Sielo Jennysis
+pages:
+- index.md
+theme: readthedocs
+repo_url: https://github.com/SieloBrowser/jennysis
+site_description: Modern and customizable web browser.

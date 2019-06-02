@@ -1,59 +1,213 @@
-WebProcess class
-================
+---
+title: "WebProcess"
+date: "06/01/2000"
+license: "GNU GPL v3"
+---
 
-This class define a complete interface between the web browser process and the software.
-It share the render area as a window identifier (as HWND under Windows).
+# WebEngine Class
 
-Defined types
--------------
+The **WebEngine** class defines an interface between the web engine such as
+Gecko or Blink and a client. It needs to be compatible with the C++ language and
+must be able to operate any common graphical web engine.
 
-To work properly, the class implements many types as enumerators or structures.
+For more information, see [Web Engine Usage]()
 
- * <a name="error_code"></a>`enum WebProcessErrorCode` : This enumerator defines all errors codes that can be pulled from `pullError` and describe the occured error. A list of the available values for this enumerator is defined as follows:
- 
-| Name                  | Description                                                                             |
-| --------------------- | --------------------------------------------------------------------------------------- |
-| NO_ERROR              | No error occurs from the beginning of this object life or the error was already pulled. |
-| NOT_IMPLEMENTED_ERROR | The current web engine does not have the called feature available                       |
-| NO_PAGE_ERROR         | The current web engine does not currently have loaded web page                          |
-| META_TAG_NOT_FOUND    | The searched meta tag is not found                                                      |
-| BAD_VALUE             | A conversion went wrong because value syntax an expected type are not compatible        |
+If you would interface an existing web engine, see [Integration Guidelines](#integration)
+section for more informations.
 
- * `enum WebProcessLoadState` : This enumerator defines all states that can be used by the web engine. A list of the available values for this enumerator is defined as follows:
+## Syntax
 
-| Name     | Description                                                                                         |
-| -------- | --------------------------------------------------------------------------------------------------- |
-| WORKING  | The web engine is currently working. e.g. it can render page and refresh its rendering              |
-| UNLOADED | The web engine is unloaded. e.g. the web engine process doesn't run and the page doesn't use memory |
-| BUSY     | The web engine does not currently respond.                                                          |
+```cpp
+class WebEngine;
+```
 
- * `typedef WinID` : This type is an overload of an integer and specify the identifier of the browser view window. This identifier needs to be accessible to the GUI module because it is the only one object which link the rendering area to the window. This type needs to be an overload of:
-     * `HWND` for Win32 API compatible Operating System (Windows 10, Windows 8, Windows 7...)
-     * `int` for Cocoa API compatible Operating System (MacOS 10.0 and above)
-     * `long` for X.org/Wayland compatible Operating System (Linux for desktop)
+```nim
+type WebEngine* = ptr object
+```
 
-Methods
--------
+### Constructors
 
-An object is a collection of methods and parameters used to make complex tasks. In this case, this object implements these methods:
+|Constructor|Description|
+|-|-|
+|[WebEngine](#WebEngine)|Create a new instance of the web engine.|
 
- * **Constructor**: This function create a new instance of this object.
- * **Destructor**: This function destroy the current instance of the object and is called when the developper calls `delete <object name>` in C++.
- * **`DevTools developerTools()`**: This function gives the developper tools client framework.
- * **`WebProcessLoadState loadState() const`**: This function return the current web engine state.
- * **`string metaValue(string name) const`**: This function give the value of a meta tag with as name `name`.
- * **`ifstream pageCode() const`**: This function give an input flux (e.g. the flux can't be edited by the client) of the source code of loaded page.
- * **`string pageTitle() const`**: This function give the current page title.
- * **`WebProcessErrorCode pullError()`**: This function get the last appened error. If the last error was pulled or nothing append from the initializing of this object, this function returns `NO_ERROR`. See [error code section](#error_code) for more informations.
- * **`WinID winID()`**: This function provides the window identifier to be given to the GUI module.
+### Member functions
 
-Attributes
-----------
+|Member function|Description|
+|-|-|
+|[addInterface](#addInterface)|Add a javascript interface|
+|[allowedPermissions](#allowedPermissions)|Return a list of allowed permissions for this page|
+|[allowPermission](#allowPermission)|Request the activation of a permission to the current web engine|
+|[devTools](#devTools)|Request the access to the developper tools interface|
+|[editInterface](#editInterface)|Edit an existing javascript interface|
+|[GETParameters](#GETParameters)|Return the parameters specified in the GET mode (eg. data sended through the URL)|
+|[httpCode](#httpCode)|Return the last request http code|
+|[httpHeader](#httpHeader)|Return the page http header|
+|[httpsCertificate](#httpsCertificate)|Return all https connexion informations of the security certificate|
+|[httpsState](#httpsState)|Return the httos connexion state|
+|[isAllowed](#isAllowed)|Check if specified permission is allowed for the current web engine|
+|[isHttps](#isHttps)|Check if the current connexion uses https instead of http|
+|[isMute](#isMute)|Check if the song of the current page is mute|
+|[loadPage](#loadPage)|Load a new page from the specified URL|
+|[meta](#meta)|Get the value for a name from a meta tag|
+|[metaList](#metaList)|Return the list of added meta tags|
+|[mute](#mute)|Set if the tab is mute or not|
+|[network](#network)|Get the current network manager interface from the web engine|
+|[POSTParameters](#POSTParameters)|Return the parameters specified in the POST mode (eg. data sended through the page header)|
+|[removeInterface](#removeInterface)|Remove an existing javascript interface|
+|[rule](#rule)|Get the value of a specified rule for the web engine|
+|[setNetwork](#setNetwork)|Set an other network engine to the web engine|
+|[sourceCode](#sourceCode)|Get the page source code as a string variable|
+|[setPermissions](#setPermissions)|Set permissions for current web page|
+|[setRule](#setRule)|Set a value to a specified rule for the current web engine|
+|[title](#title)|Get the current page title|
+|[url](#url)|Get the current page url|
 
-Attributes sets up getter and setters for the object. These attributes are defined as follows:
+### Static functions
 
- * `WebPermissions permissions`: This attribute is a list of a permission allowed to a web page
+|Static function|Description|
+|-|-|
+|[defaultPermissions](#defaultPermissions)|Return the default permissions for the page|
 
- * `WebFeatures features`: This attribute is a list of features supported by the web engine.
+### Member signals
 
-**Note:** each web engine has its own features list. As a consequence, please read the documentation of this last to know what are available permissions.
+> Warning, event system such as signals and slots are not available as default
+> in C++. However, see [Event System Integration]() for more informations.
+
+|Member signal|Description|
+|-|-|
+|[metaChanged](#metaChanged)|Sended when the meta tag list is edited|
+|[newPageRequest](#newPageRequest)|Sended when the web page is changed|
+|[useSound](#useSound)|Sended if the web page emit a sound|
+|[pageEdited](#pageEdited)|Sended if the page structure is changed|
+|[targetLink](#targetLink)|Sended if the web page attempt to load an URL to a new window/tab |
+|[titleChanged](#titleChanged)|Sended if the title is changed|
+
+## <a name="addInterface"></a> WebEngine::addInterface
+
+**TODO**: `addInterface` member function
+
+## <a name="allowedPermissions"></a> WebEngine::allowedPermissions
+
+**TODO**: `allowedPermissions` member function
+
+## <a name="allowPermission"></a> WebEngine::allowPermission
+
+**TODO**: `allowPermission` member function
+
+## <a name="devTools"></a> WebEngine::devTools
+
+**TODO**: `devTools` member function
+
+## <a name="editInterface"></a> WebEngine::editInterface
+
+**TODO**: `editInterface` member function
+
+## <a name="GETParameters"></a> WebEngine::GETParameters
+
+**TODO**: `GETParameters` member function
+
+## <a name="httpCode"></a> WebEngine::httpCode
+
+**TODO**: `httpCode` member function
+
+## <a name="httpHeader"></a> WebEngine::httpHeader
+
+**TODO**: `httpHeader` member function
+
+## <a name="httpsCertificate"></a> WebEngine::httpsCertificate
+
+**TODO**: `httpsCertificate` member function
+
+## <a name="httpsState"></a> WebEngine::httpsState
+
+**TODO**: `httpsState` member function
+
+## <a name="isAllowed"></a> WebEngine::isAllowed
+
+**TODO**: `isAllowed` member function
+
+## <a name="isHttps"></a> WebEngine::isHttps
+
+**TODO**: `isHttps` member function
+
+## <a name="isMute"></a> WebEngine::isMute
+
+**TODO**: `isMute` member function
+
+## <a name="loadPage"></a> WebEngine::loadPage
+
+**TODO**: `loadPage` member function
+
+## <a name="meta"></a> WebEngine::meta
+
+**TODO**: `meta` member function
+
+## <a name="metaList"></a> WebEngine::metaList
+
+**TODO**: `metaList` member function
+
+## <a name="mute"></a> WebEngine::mute
+
+**TODO**: `mute` member function
+
+## <a name="network"></a> WebEngine::network
+
+**TODO**: `network` member function
+
+## <a name="POSTParameters"></a> WebEngine::POSTParameters
+
+**TODO**: `POSTParameters` member function
+
+## <a name="removeInterface"></a> WebEngine::removeInterface
+
+**TODO**: `removeInterface` member function
+
+## <a name="rule"></a> WebEngine::rule
+
+**TODO**: `rule` member function
+
+## <a name="setNetwork"></a> WebEngine::setNetwork
+
+**TODO**: `setNetwork` member function
+
+## <a name="sourceCode"></a> WebEngine::sourceCode
+
+**TODO**: `sourceCode` member function
+
+## <a name="setPermissions"></a> WebEngine::setPermissions
+
+**TODO**: `setPermissions` member function
+
+## <a name="setRule"></a> WebEngine::setRule
+
+**TODO**: `setRule` member function
+
+## <a name="title"></a> WebEngine::title
+
+**TODO**: `title` member function
+
+## <a name="url"></a> WebEngine::url
+
+**TODO**: `url` member function
+
+## <a name="WebEngine"></a> WebEngine::WebEngine
+
+Create a new instance of the web engine.
+
+```cpp
+WebEngine()
+WebEngine(std::string url, std::vector<permissionName> permissions = WebEngine::defaultPermissions())
+```
+
+```nim
+proc webEngine() : WebEngine
+proc webEngine(url : string, permissions = defaultPermissions())
+```
+
+### Parameters
+
+|Parameter|Description|
+|-|-|
+|url|The URL of the web page|
+|permissions|The list of permissions for the page. See [permissionName]() section for more informations|

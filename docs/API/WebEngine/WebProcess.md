@@ -1,12 +1,12 @@
 ---
-title: "WebProcess"
+title: "WebProcess Class"
 date: "06/01/2000"
-license: "GNU GPL v3"
+license: "CC-BY-NA"
 ---
 
-# WebEngine Class
+# WebProcess Class
 
-The **WebEngine** class defines an interface between the web engine such as
+The **WebProcess** class defines an interface between the web engine such as
 Gecko or Blink and a client. It needs to be compatible with the C++ language and
 must be able to operate any common graphical web engine.
 
@@ -18,18 +18,19 @@ section for more informations.
 ## Syntax
 
 ```cpp
-class WebEngine;
+class WebProcess;
 ```
 
 ```nim
-type WebEngine* = ptr object
+type
+  WebProcess* {.bycopy.} = object
 ```
 
 ### Constructors
 
 |Constructor|Description|
 |-|-|
-|[WebEngine](#WebEngine)|Create a new instance of the web engine.|
+|[WebProcess](#WebProcess)|Create a new instance of the web engine.|
 
 ### Member functions
 
@@ -44,7 +45,7 @@ type WebEngine* = ptr object
 |[httpCode](#httpCode)|Return the last request http code|
 |[httpHeader](#httpHeader)|Return the page http header|
 |[httpsCertificate](#httpsCertificate)|Return all https connexion informations of the security certificate|
-|[httpsState](#httpsState)|Return the httos connexion state|
+|[httpsState](#httpsState)|Return the https connexion state|
 |[isAllowed](#isAllowed)|Check if specified permission is allowed for the current web engine|
 |[isHttps](#isHttps)|Check if the current connexion uses https instead of http|
 |[isMute](#isMute)|Check if the song of the current page is mute|
@@ -62,6 +63,7 @@ type WebEngine* = ptr object
 |[setRule](#setRule)|Set a value to a specified rule for the current web engine|
 |[title](#title)|Get the current page title|
 |[url](#url)|Get the current page url|
+|[winId](#winId)|Get the window indentifier of the rendering area|
 
 ### Static functions
 
@@ -83,126 +85,408 @@ type WebEngine* = ptr object
 |[targetLink](#targetLink)|Sended if the web page attempt to load an URL to a new window/tab |
 |[titleChanged](#titleChanged)|Sended if the title is changed|
 
-## <a name="addInterface"></a> WebEngine::addInterface
+## Requirements
+
+### In C++
+
+**Include**: `<WebEngine.hpp>`
+
+**Namespace**: `Sielo::WebEngine`
+
+### In NIM
+
+**Import**: `import WebEngine` or `from WebEngine import WebProcess`
+
+## <a name="addInterface"></a> WebProcess::addInterface
+
+Add a javascript interface
+
+```cpp
+bool WebProcess::addInterface(std::string name, JSInterface interface);
+```
+
+```nim
+proc addInterface*(this : var WebProcess, name : string, interface : JSInterface) : bool
+```
 
 **TODO**: `addInterface` member function
 
-## <a name="allowedPermissions"></a> WebEngine::allowedPermissions
+## <a name="allowedPermissions"></a> WebProcess::allowedPermissions
+
+Return a list of allowed permissions for this page
+
+```cpp
+std::vector<permissionName> WebProcess::allowedPermissions(void) const;
+```
+
+```nim
+proc allowedPermissions*(this : var WebProcess) : vector[permissionName]
+```
 
 **TODO**: `allowedPermissions` member function
 
-## <a name="allowPermission"></a> WebEngine::allowPermission
+## <a name="allowPermission"></a> WebProcess::allowPermission
+
+Request the activation of a permission to the current web engine
+
+```cpp
+void WebProcess::allowPermission(permissionName permission, bool enabled);
+```
+
+```nim
+proc allowPermission*(this : var WebProcess, permission : permissionName, enabled : bool)
+```
 
 **TODO**: `allowPermission` member function
 
-## <a name="devTools"></a> WebEngine::devTools
+## <a name="devTools"></a> WebProcess::devTools
+
+Request the access to the developper tools interface
+
+```cpp
+std::weak_ptr<webDevTools> WebProcess::devTools(void) const;
+```
+
+```nim
+proc devTools*(this : var WebProcess) : weak_ptr[webDevTools]
+```
 
 **TODO**: `devTools` member function
 
-## <a name="editInterface"></a> WebEngine::editInterface
+## <a name="editInterface"></a> WebProcess::editInterface
+
+Edit an existing javascript interface
+
+```cpp
+bool WebProcess::editInterface(std::string name, JSInterface interface);
+```
+
+```nim
+proc editInterface*(this : var WebProcess, name : string, interface : JSInterface) : bool
+```
 
 **TODO**: `editInterface` member function
 
-## <a name="GETParameters"></a> WebEngine::GETParameters
+## <a name="GETParameters"></a> WebProcess::GETParameters
+
+Return the parameters specified in the GET mode (eg. data sended through the URL)
+
+```cpp
+std::map<std::string, std::string> WebProcess::GETParameters(void) const;
+```
+
+```nim
+proc GETParameters*(this : var WebProcess) : map[string, string]
+```
 
 **TODO**: `GETParameters` member function
 
-## <a name="httpCode"></a> WebEngine::httpCode
+## <a name="httpCode"></a> WebProcess::httpCode
+
+Return the last request http code
+
+```cpp
+int WebProcess::httpCode(void) const
+```
+
+```nim
+proc httpCode*(this : var WebProcess) : cint
+```
 
 **TODO**: `httpCode` member function
 
-## <a name="httpHeader"></a> WebEngine::httpHeader
+## <a name="httpHeader"></a> WebProcess::httpHeader
+
+Return the page http header
+
+```cpp
+std::string WebProcess::httpHeader(void) const;
+```
+
+```nim
+proc httpHeader*(this : var WebProcess) : string
+```
 
 **TODO**: `httpHeader` member function
 
-## <a name="httpsCertificate"></a> WebEngine::httpsCertificate
+## <a name="httpsCertificate"></a> WebProcess::httpsCertificate
+
+Return all https connexion informations of the security certificate
+
+```cpp
+httpsCertificateData WebProcess::httpsCertificate(void) const;
+```
+
+```nim
+proc httpsCertificate*(this : var WebProcess) : httpsCertificateData
+```
 
 **TODO**: `httpsCertificate` member function
 
-## <a name="httpsState"></a> WebEngine::httpsState
+## <a name="httpsState"></a> WebProcess::httpsState
+
+Return the https connexion state
+
+```cpp
+httpsStateCode WebProcess::httpsState(void) const;
+```
+
+```nim
+proc httpsState*(this : var WebProcess) : httpsStateCode
+```
 
 **TODO**: `httpsState` member function
 
-## <a name="isAllowed"></a> WebEngine::isAllowed
+## <a name="isAllowed"></a> WebProcess::isAllowed
+
+Check if specified permission is allowed for the current web engine
+
+```cpp
+bool WebProcess::isAllowed(permissionName permission) const;
+```
+
+```nim
+proc isAllowed*(this : var WebProcess, permission : permissionName) : bool
+```
 
 **TODO**: `isAllowed` member function
 
-## <a name="isHttps"></a> WebEngine::isHttps
+## <a name="isHttps"></a> WebProcess::isHttps
+
+Check if the current connexion uses https instead of http
+
+```cpp
+bool WebProcess::isHttps(void) const;
+```
+
+```nim
+proc isHttps*(this : var WebProcess) : bool
+```
 
 **TODO**: `isHttps` member function
 
-## <a name="isMute"></a> WebEngine::isMute
+## <a name="isMute"></a> WebProcess::isMute
+
+Check if the song of the current page is mute
+
+```cpp
+bool WebProcess::isMute(void) const;
+```
+
+```nim
+proc isMute*(this : var WebProcess) : bool
+```
 
 **TODO**: `isMute` member function
 
-## <a name="loadPage"></a> WebEngine::loadPage
+## <a name="loadPage"></a> WebProcess::loadPage
+
+Load a new page from the specified URL
+
+```cpp
+bool WebProcess::loadPage(std::string url);
+```
+
+```nim
+proc loadPage*(this : var WebProcess, url : string) : bool
+```
 
 **TODO**: `loadPage` member function
 
-## <a name="meta"></a> WebEngine::meta
+## <a name="meta"></a> WebProcess::meta
+
+Get the value for a name from a meta tag
+
+```cpp
+std::string WebProcess::meta(std::string name) const;
+```
+
+```nim
+proc meta*(this : var WebProcess, name : string) : string
+```
 
 **TODO**: `meta` member function
 
-## <a name="metaList"></a> WebEngine::metaList
+## <a name="metaList"></a> WebProcess::metaList
+
+Return the list of added meta tags
+
+```cpp
+std::map<std::string, std::string> WebProcess::metaList(void) const;
+```
+
+```nim
+proc metaList*(this : var WebProcess) : map[string, string]
+```
 
 **TODO**: `metaList` member function
 
-## <a name="mute"></a> WebEngine::mute
+## <a name="mute"></a> WebProcess::mute
+
+Set if the tab is mute or not
+
+```cpp
+void WebProcess::mute(bool mute);
+```
+
+```nim
+proc mute*(this : var WebProcess, mute : bool)
+```
 
 **TODO**: `mute` member function
 
-## <a name="network"></a> WebEngine::network
+## <a name="network"></a> WebProcess::network
+
+Get the current network manager interface from the web engine
+
+```cpp
+std::weak_ptr<networkEngine> WebProcess::network(void) const;
+```
+
+```nim
+proc network*(this : var WebProcess) : weak_ptr[networkEngine]
+```
 
 **TODO**: `network` member function
 
-## <a name="POSTParameters"></a> WebEngine::POSTParameters
+## <a name="POSTParameters"></a> WebProcess::POSTParameters
+
+Return the parameters specified in the POST mode (eg. data sended through the page header)
+
+```cpp
+std::map<std::string, std::string> WebProcess::POSTParameters(void) const;
+```
+
+```nim
+proc POSTParameters*(this : var WebProcess) : map[string, string]
+```
 
 **TODO**: `POSTParameters` member function
 
-## <a name="removeInterface"></a> WebEngine::removeInterface
+## <a name="removeInterface"></a> WebProcess::removeInterface
+
+Remove an existing javascript interface
+
+```cpp
+bool WebProcess::removeInterface(std::string name);
+```
+
+```nim
+proc removeInterface*(this : var WebProcess, name : string) : bool
+```
 
 **TODO**: `removeInterface` member function
 
-## <a name="rule"></a> WebEngine::rule
+## <a name="rule"></a> WebProcess::rule
+
+Get the value of a specified rule for the web engine
+
+```cpp
+int WebProcess::rule(ruleName rule) const;
+```
+
+```nim
+proc rule*(this : var WebProcess, rule : ruleName) : cint
+```
 
 **TODO**: `rule` member function
 
-## <a name="setNetwork"></a> WebEngine::setNetwork
+## <a name="setNetwork"></a> WebProcess::setNetwork
+
+Set an other network engine to the web engine
+
+```cpp
+void WebProcess::setNetwork(std::shared_ptr<networkEngine> net);
+```
+
+```nim
+proc setNetwork*(this : var WebProcess, net : shared_ptr[networkEngine])
+```
 
 **TODO**: `setNetwork` member function
 
-## <a name="sourceCode"></a> WebEngine::sourceCode
+## <a name="sourceCode"></a> WebProcess::sourceCode
+
+Get the page source code as a string variable
+
+```cpp
+std::string WebProcess::sourceCode(void) const;
+```
+
+```nim
+proc sourceCode*(this : var WebProcess) : string
+```
 
 **TODO**: `sourceCode` member function
 
-## <a name="setPermissions"></a> WebEngine::setPermissions
+## <a name="setPermissions"></a> WebProcess::setPermissions
+
+Set permissions for current web page
+
+```cpp
+void WebProcess::setPermissions(std::vector<permissionName> permissions, bool enabled = true);
+```
+
+```nim
+proc setPermissions*(this : var WebProcess, permissions : vector[permissionName], enabled : bool = true)
+```
 
 **TODO**: `setPermissions` member function
 
-## <a name="setRule"></a> WebEngine::setRule
+## <a name="setRule"></a> WebProcess::setRule
+
+Set a value to a specified rule for the current web engine
+
+```cpp
+void WebProcess::setRule(ruleName rule, int value);
+```
+
+```nim
+proc setRule*(this : var WebProcess, rule : ruleName, value : cint)
+```
 
 **TODO**: `setRule` member function
 
-## <a name="title"></a> WebEngine::title
+## <a name="title"></a> WebProcess::title
+
+Get the current page title
+
+```cpp
+std::string WebProcess::title(void) const;
+```
+
+```nim
+proc title*(this : var WebProcess) : string;
+```
 
 **TODO**: `title` member function
 
-## <a name="url"></a> WebEngine::url
+## <a name="url"></a> WebProcess::url
 
-**TODO**: `url` member function
+Get the current page url
 
-## <a name="WebEngine"></a> WebEngine::WebEngine
+```cpp
+std::string WebProcess::url(void) const;
+```
+
+```nim
+proc url*(this : var WebProcess) : string
+```
+
+**TODO**: `url` member function documentation
+
+## <a name="WebProcess"></a> WebProcess::WebProcess
 
 Create a new instance of the web engine.
 
 ```cpp
-WebEngine()
-WebEngine(std::string url, std::vector<permissionName> permissions = WebEngine::defaultPermissions())
+WebProcess()
+WebProcess(std::string url, std::vector<permissionName> permissions = WebProcess::defaultPermissions())
 ```
 
 ```nim
-proc webEngine() : WebEngine
-proc webEngine(url : string, permissions = defaultPermissions())
+proc constructWebProcess*() : WebProcess
+proc constructWebProcess*(url : string, permissions = defaultPermissions())
 ```
 
 ### Parameters
@@ -211,3 +495,28 @@ proc webEngine(url : string, permissions = defaultPermissions())
 |-|-|
 |url|The URL of the web page|
 |permissions|The list of permissions for the page. See [permissionName]() section for more informations|
+
+## <a name="winId"></a> WebProcess::winId
+
+Get the window indentifier of the rendering area.
+
+```cpp
+WId WebProcess::winId();
+```
+
+```nim
+proc winId*(this : var WebProcess) : WId
+```
+
+### WId return type
+
+The `WId` return type is a reimplementation of the native window type for each system. It is generally a system-dependent sized integer. It can be implemented by:
+
+```cpp
+typedef unsigned int WId;
+```
+
+```nim
+type
+    WId* = uint
+```

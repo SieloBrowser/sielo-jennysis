@@ -95,7 +95,7 @@ type
 
 ### In NIM
 
-**Import**: `import WebEngine` or `from WebEngine import WebProcess`
+**Import**: `WebEngine`
 
 ## <a name="addInterface"></a> WebProcess::addInterface
 
@@ -109,7 +109,17 @@ bool WebProcess::addInterface(std::string name, JSInterface interface);
 proc addInterface*(this : var WebProcess, name : string, interface : JSInterface) : bool
 ```
 
-**TODO**: `addInterface` member function
+### Parameters
+
+|Parameter|Description|
+|-|-|
+|name|The name of the interface (e.g the root object where interface is called)|
+|[JSInterface](JSInterface.md)|A javascript interface handler type.|
+
+### Returns
+
+`true` if the interface is successfully created of `false` else.
+`false` is returned if the interface already exists or it name is reserved.
 
 ## <a name="allowedPermissions"></a> WebProcess::allowedPermissions
 
@@ -144,11 +154,11 @@ proc allowPermission*(this : var WebProcess, permission : permissionName, enable
 Request the access to the developper tools interface
 
 ```cpp
-std::weak_ptr<webDevTools> WebProcess::devTools(void) const;
+std::weak_ptr<WebDevTools> WebProcess::devTools(void) const;
 ```
 
 ```nim
-proc devTools*(this : var WebProcess) : weak_ptr[webDevTools]
+proc devTools*(this : var WebProcess) : weak_ptr[WebDevTools]
 ```
 
 **TODO**: `devTools` member function
@@ -340,11 +350,11 @@ proc mute*(this : var WebProcess, mute : bool)
 Get the current network manager interface from the web engine
 
 ```cpp
-std::weak_ptr<networkEngine> WebProcess::network(void) const;
+std::weak_ptr<NetworkEngine> WebProcess::network(void) const;
 ```
 
 ```nim
-proc network*(this : var WebProcess) : weak_ptr[networkEngine]
+proc network*(this : var WebProcess) : weak_ptr[NetworkEngine]
 ```
 
 **TODO**: `network` member function
@@ -396,11 +406,11 @@ proc rule*(this : var WebProcess, rule : ruleName) : cint
 Set an other network engine to the web engine
 
 ```cpp
-void WebProcess::setNetwork(std::shared_ptr<networkEngine> net);
+void WebProcess::setNetwork(std::shared_ptr<NetworkEngine> net);
 ```
 
 ```nim
-proc setNetwork*(this : var WebProcess, net : shared_ptr[networkEngine])
+proc setNetwork*(this : var WebProcess, net : shared_ptr[NetworkEngine])
 ```
 
 **TODO**: `setNetwork` member function

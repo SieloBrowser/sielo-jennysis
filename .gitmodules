@@ -1,0 +1,6 @@
+[submodule "ui"]
+	path = ui
+	url = https://github.com/SieloBrowser/sielo-ui.git
+[submodule "core"]
+	path = core
+	url = https://github.com/SieloBrowser/sielo-core.git
